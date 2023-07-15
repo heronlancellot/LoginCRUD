@@ -7,14 +7,22 @@ public class Usuario {
     private String cpf;
     private String endereco;
     private String senha;
+    private String status;
 
+    public Usuario(String nome, String cpf, String endereco, String senha, String status) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.senha = senha;
+        this.status = status;
+    }
+    
     public Usuario(String nome, String cpf, String endereco, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.endereco = endereco;
         this.senha = senha;
     }
-
     public Usuario(int id, String nome) {
         this.id = id;
         this.nome = nome;
@@ -55,6 +63,14 @@ public class Usuario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public String getEndereco() {

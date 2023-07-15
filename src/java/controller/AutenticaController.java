@@ -57,7 +57,7 @@ public class AutenticaController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuarioObtido);
 
-                rd = request.getRequestDispatcher("/admin/dashboard");
+                rd = request.getRequestDispatcher("/views/public/home.jsp");
                 rd.forward(request, response);
 
             } else {

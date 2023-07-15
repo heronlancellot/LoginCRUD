@@ -53,6 +53,7 @@ public class UsuarioDAO {
                     usuario.setCpf(resultado.getString("cpf"));
                     usuario.setEndereco(resultado.getString("endereco"));
                     usuario.setSenha(resultado.getString("senha"));
+                    usuario.setStatus(resultado.getString("aprovado"));
                 }
             }
             return usuario;
@@ -73,6 +74,7 @@ public class UsuarioDAO {
             sql.setString(3, Usuario.getEndereco());
             sql.setString(4, Usuario.getSenha());
             sql.setInt(5, Usuario.getId());
+            sql.setString(6, Usuario.getStatus());
             sql.executeUpdate();
 
         } catch (SQLException e) {

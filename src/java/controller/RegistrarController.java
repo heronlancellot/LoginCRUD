@@ -37,7 +37,7 @@ public class RegistrarController extends HttpServlet {
     	String cpf = request.getParameter("cpf");
     	String senha = request.getParameter("senha");
     	String btEnviar = request.getParameter("btEnviar");
-    	//String status = request.getParameter("aprovado");
+    	
 
     	Usuario usuario = new Usuario(nome, cpf, endereco, senha);
     	UsuarioDAO usuariodao = new UsuarioDAO();
