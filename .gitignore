@@ -6,4 +6,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-./src/java/model/Conexao.java
+src/java/model/Conexao
