@@ -48,11 +48,11 @@ public class UsuarioDAO {
             ResultSet resultado = sql.executeQuery();
             if (resultado != null) {
                 while (resultado.next()) {
-                    usuario.setId(Integer.parseInt(resultado.getString("ID")));
-                    usuario.setNome(resultado.getString("NOME"));
-                    usuario.setCpf(resultado.getString("CPF"));
-                    usuario.setEndereco(resultado.getString("ENDERECO"));
-                    usuario.setSenha(resultado.getString("SENHA"));
+                    usuario.setId(Integer.parseInt(resultado.getString("id")));
+                    usuario.setNome(resultado.getString("nome"));
+                    usuario.setCpf(resultado.getString("cpf"));
+                    usuario.setEndereco(resultado.getString("endereco"));
+                    usuario.setSenha(resultado.getString("senha"));
                 }
             }
             return usuario;

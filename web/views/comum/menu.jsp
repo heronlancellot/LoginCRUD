@@ -13,7 +13,7 @@
                     if (sessao != null) {
                         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                         if (usuarioLogado != null) { %>
-                            <a class="nav-link" href="/aplicacaoMVC/admin/dashboard">Dashboard</a>
+                            <a class="nav-link" href="/aplicacaoMVC/admin/dashboard?acao=Listar">Dashboard</a>
                             <a class="nav-link" href="/aplicacaoMVC/admin/CategoriaController?acao=Listar">Categorias</a>
                             <a class="nav-link" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%  } else { %>

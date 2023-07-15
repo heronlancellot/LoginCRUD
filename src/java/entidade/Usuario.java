@@ -30,7 +30,7 @@ public class Usuario {
         this.nome = "";
         this.cpf = "";
         this.endereco = "";
-        this.senha = "";;
+        this.senha = "";
     }
 
     public int getId() {

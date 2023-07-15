@@ -25,13 +25,14 @@
 
 
                 %>
-                
+                aqui
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
-                                <th scope="col">Nome</th>                 
+                                <th scope="col">Nome</th>
+                          
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -46,10 +47,9 @@
                                     
                             %>
                         <td>
-                            <a href="/aplicacaoMVC/admin/dashboard?acao=Alterar&id=<%=usuario.getId()%>" class="btn btn-warning">Alterar</a>
-                            <a href="/aplicacaoMVC/admin/dashboard?acao=Excluir&id=<%=usuario.getId()%>" class="btn btn-danger">Excluir</a>
-                            <a href="/aplicacaoMVC/admin/dashboard?acao=Excluir&id=<%=usuario.getId()%>" class="btn btn-success">Aprovar</a>
-                        </td>
+                            <a href="/aplicacaoMVC/admin/DashboardController?acao=Alterar&id=<%=usuario.getId()%>" class="btn btn-warning">Alterar</a>
+                            <a href="/aplicacaoMVC/admin/DashboardController?acao=Excluir&id=<%=usuario.getId()%>" class="btn btn-danger">Excluir</a>
+<a href="/aplicacaoMVC/admin/DashboardController?acao=Aprovar&id=<%=usuario.getId()%>" class="btn btn-success">Aprovar</a></td>
                         <%   out.println("</tr>");
                             }
                         %>
