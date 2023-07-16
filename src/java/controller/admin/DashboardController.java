@@ -49,6 +49,11 @@ public class DashboardController extends HttpServlet {
                 usuario = usuarioDAO.getUsuario(id);
                 usuario.setStatus("S");
                 usuarioDAO.Alterar(usuario);
+                request.setAttribute("link", "/aplicacaoMVC/admin/dashboard?acao=Listar");
+                request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
+                rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
+                rd.forward(request, response);
+
                 break;
         }
 
@@ -72,7 +77,7 @@ public class DashboardController extends HttpServlet {
         RequestDispatcher rd;
 
         if (nome.isEmpty() || endereco.isEmpty() || cpf.isEmpty() || senha.isEmpty()) {
-
+            
         } else {
 
             Usuario usuario = new Usuario();

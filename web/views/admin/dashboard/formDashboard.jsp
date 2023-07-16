@@ -1,7 +1,6 @@
 <%@page import="entidade.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entidade.Categoria"%>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,10 +25,10 @@
                         String acao = (String) request.getAttribute("acao");
                         switch (acao) {
                             case "Alterar":
-                                out.println("<h1>Alterar Categoria</h1>");
+                                out.println("<h1>Alterar Usuário</h1>");
                                 break;
                             case "Excluir":
-                                out.println("<h1>Excluir Categoria</h1>");
+                                out.println("<h1>Excluir Usuário</h1>");
                                 break;
                         }
 
