@@ -1,17 +1,13 @@
 package controller.admin;
 
-import entidade.Categoria;
 import entidade.Usuario;
 import java.io.IOException;
-import static java.lang.System.out;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.CategoriaDAO;
 import model.UsuarioDAO;
 
 @WebServlet(name = "DashboardController", urlPatterns = {"/admin/dashboard"})
@@ -24,8 +20,9 @@ public class DashboardController extends HttpServlet {
         String acao = (String) request.getParameter("acao");
         Usuario usuario = new Usuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-       
+
         RequestDispatcher rd;
+        int id;
         switch (acao) {
             case "Listar":
                 request.setAttribute("usuariosNaoAprovados", usuarioDAO.getUsuarioNaoAprovado());
@@ -35,17 +32,23 @@ public class DashboardController extends HttpServlet {
             case "Alterar":
             case "Excluir":
                 // get parametro ação indicando sobre qual categoria será a ação
-                int id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 System.out.println("valor do id " + id);
-              
+
                 usuario = usuarioDAO.getUsuario(id);
-      
+
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
 
                 rd = request.getRequestDispatcher("/views/admin/dashboard/formDashboard.jsp");
                 rd.forward(request, response);
+                break;
+            case "Aprovar":
+                id = Integer.parseInt(request.getParameter("id"));
+                usuario = usuarioDAO.getUsuario(id);
+                usuario.setStatus("S");
+                usuarioDAO.Alterar(usuario);
                 break;
         }
 
@@ -55,9 +58,8 @@ public class DashboardController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
-       // Usuario usuario = new Usuario();
-       // String acao = (String) request.getParameter("acao");
+        // Usuario usuario = new Usuario();
+        // String acao = (String) request.getParameter("acao");
         String btEnviar = request.getParameter("btEnviar");
 
         int id = Integer.parseInt(request.getParameter("id"));
@@ -68,31 +70,29 @@ public class DashboardController extends HttpServlet {
         String senha = request.getParameter("senha");
 
         RequestDispatcher rd;
-        
+
         if (nome.isEmpty() || endereco.isEmpty() || cpf.isEmpty() || senha.isEmpty()) {
 
-        } 
-        else {
-            
+        } else {
+
             Usuario usuario = new Usuario();
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuario.setNome(nome);
             usuario.setEndereco(endereco);
             usuario.setCpf(cpf);
             usuario.setSenha(senha);
             usuario.setId(id);
-            usuario.setStatus("S");
-            
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuario.setStatus("N");
+
             try {
                 switch (btEnviar) {
                     case "Incluir":
                         break;
                     case "Alterar":
                         usuarioDAO.Alterar(usuario);
-                        request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");           
+                        request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        
                         usuarioDAO.Excluir(usuario);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;

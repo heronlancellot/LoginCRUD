@@ -30,6 +30,7 @@ public class UsuarioDAO {
             sql.setString(2, usuario.getCpf());
             sql.setString(3, usuario.getEndereco());
             sql.setString(4, usuario.getSenha());
+            //sql.setString(5, usuario.getStatus());
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -39,7 +40,7 @@ public class UsuarioDAO {
         }
     }
 
-    public Usuario getUsuario(int id) throws Exception {
+    public Usuario getUsuario(int id) {
         Conexao conexao = new Conexao();
         try {
             Usuario usuario = new Usuario();
@@ -56,6 +57,7 @@ public class UsuarioDAO {
                     usuario.setStatus(resultado.getString("aprovado"));
                 }
             }
+            
             return usuario;
 
         } catch (SQLException e) {
@@ -65,16 +67,16 @@ public class UsuarioDAO {
         }
     }
 
-    public void Alterar(Usuario Usuario) throws Exception {
+    public void Alterar(Usuario Usuario) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE usuarios SET nome = ?, cpf = ?, endereco = ?, senha = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE usuarios SET nome = ?, cpf = ?, endereco = ?, senha = ?, aprovado = ? WHERE ID = ?");
             sql.setString(1, Usuario.getNome());
             sql.setString(2, Usuario.getCpf());
             sql.setString(3, Usuario.getEndereco());
             sql.setString(4, Usuario.getSenha());
-            sql.setInt(5, Usuario.getId());
-            sql.setString(6, Usuario.getStatus());
+            sql.setString(5, Usuario.getStatus());
+            sql.setInt(6, Usuario.getId());
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -83,6 +85,7 @@ public class UsuarioDAO {
             conexao.closeConexao();
         }
     }
+
 
     public void Excluir(Usuario Usuario) throws Exception {
         Conexao conexao = new Conexao();
@@ -139,6 +142,7 @@ public class UsuarioDAO {
                     usuarioObtido.setCpf(resultado.getString("CPF"));
                     usuarioObtido.setEndereco(resultado.getString("ENDERECO"));
                     usuarioObtido.setSenha(resultado.getString("SENHA"));
+                    usuarioObtido.setStatus(resultado.getString("APROVADO"));
                 }
             }
             return usuarioObtido;

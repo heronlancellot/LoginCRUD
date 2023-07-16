@@ -55,6 +55,7 @@ public class RegistrarController extends HttpServlet {
         }else {
             try 
             {
+                    //usuario.setStatus("N");
                     usuariodao.Inserir(usuario);
             }
             catch (Exception ex)

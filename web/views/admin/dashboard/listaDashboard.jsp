@@ -22,6 +22,7 @@
                     ArrayList<Usuario> usuariosNaoAprovados = (ArrayList<Usuario>) request.getAttribute("usuariosNaoAprovados");
                     //out.println("<h3>Usuário logado com sucesso</h3>");
                     out.println("<h2>Nome: " + usuarioLogado.getNome() + "</h2>");
+                    out.println("<h2>Status: " + usuarioLogado.getStatus()+ "</h2>");
 
 
                 %>
@@ -44,6 +45,7 @@
                                     out.println("<tr>");
                                     out.println("<th>" + usuario.getId() + "</th>");
                                     out.println("<td>" + usuario.getNome()+ "</td>");
+                                    
                                     
                             %>
                         <td>
