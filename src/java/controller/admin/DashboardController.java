@@ -26,6 +26,7 @@ public class DashboardController extends HttpServlet {
         switch (acao) {
             case "Listar":
                 request.setAttribute("usuariosNaoAprovados", usuarioDAO.getUsuarioNaoAprovado());
+                request.setAttribute("usuariosAprovados", usuarioDAO.getUsuarioAprovado());
                 request.getRequestDispatcher("/views/admin/dashboard/listaDashboard.jsp")
                         .forward(request, response);
                 break;
@@ -50,11 +51,22 @@ public class DashboardController extends HttpServlet {
                 usuario.setStatus("S");
                 usuarioDAO.Alterar(usuario);
                 request.setAttribute("link", "/aplicacaoMVC/admin/dashboard?acao=Listar");
-                request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
+                request.setAttribute("msgOperacaoRealizada", "Aprovado com Sucesso!");
                 rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
                 rd.forward(request, response);
 
                 break;
+            case "Desaprovar":
+                id = Integer.parseInt(request.getParameter("id"));
+                usuario = usuarioDAO.getUsuario(id);
+                usuario.setStatus("N");
+                usuarioDAO.Alterar(usuario);
+                request.setAttribute("link", "/aplicacaoMVC/admin/dashboard?acao=Listar");
+                request.setAttribute("msgOperacaoRealizada", "Desaprovado com Sucesso!");
+                rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
+                rd.forward(request, response);
+
+                break;                
         }
 
     }
@@ -102,8 +114,11 @@ public class DashboardController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                     case "Aprovar":
-                        System.out.println("valor do debugad" + usuario.getId());
                         usuario.setStatus("S");
+                        usuarioDAO.Alterar(usuario);
+                        break;
+                    case "Desaprovar":
+                        usuario.setStatus("N");
                         usuarioDAO.Alterar(usuario);
                         break;
                 }

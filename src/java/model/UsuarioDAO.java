@@ -180,5 +180,32 @@ public class UsuarioDAO {
         }
         return meusUsuariosNaoAprovados;
     }
+    
+    public ArrayList<Usuario> getUsuarioAprovado() {
+        ArrayList<Usuario> meusUsuariosAprovados = new ArrayList<>();
+        Conexao conexao = new Conexao();
+        try {
+            String selectSQL = "SELECT * FROM usuarios WHERE aprovado = 'S'";
+            PreparedStatement preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado != null) {
+
+                while (resultado.next()) {
+                    Usuario usuario = new Usuario(resultado.getString("NOME"),
+                            resultado.getString("CPF"),
+                            resultado.getString("ENDERECO"),
+                            resultado.getString("SENHA"));
+                    usuario.setId(resultado.getInt("id"));
+                    meusUsuariosAprovados.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (ListaDeUsuarios) incorreta", e);
+        } finally {
+            conexao.closeConexao();
+        }
+        return meusUsuariosAprovados;
+    }
+
 
 }

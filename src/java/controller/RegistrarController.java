@@ -65,7 +65,7 @@ public class RegistrarController extends HttpServlet {
             }
 
 
-            request.setAttribute("msgOperacaoRealizada", "Usuário Registrado com Sucessos");
+            request.setAttribute("msgOperacaoRealizada", "Usuário Registrado com Sucesso");
             request.setAttribute("link", "AutenticaController?acao=Login");
             rd = request.getRequestDispatcher("/views/comum/showMessage.jsp");
             rd.forward(request, response);
