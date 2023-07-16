@@ -41,6 +41,7 @@
 
                     <form action="/aplicacaoMVC/admin/dashboard" method="POST">
                         <input type="hidden" name="id" value="<%=usuario.getId()%>" class="form-control">
+                         <input type="hidden" name="aprovado" value="<%=usuario.getStatus()%>" class="form-control">
                         <div class="mb-3">
                             <label for="nome" class="form-label" >Nome</label>
                             <input type="text" name="nome" <%= acao.equals("Excluir") ? "Readonly" : ""%> value="<%=usuario.getNome()%>" class="form-control">

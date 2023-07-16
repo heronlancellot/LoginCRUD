@@ -85,6 +85,8 @@ public class DashboardController extends HttpServlet {
         String endereco = request.getParameter("endereco");
         String cpf = request.getParameter("cpf");
         String senha = request.getParameter("senha");
+        String status = request.getParameter("aprovado");
+       
 
         RequestDispatcher rd;
 
@@ -92,14 +94,9 @@ public class DashboardController extends HttpServlet {
             
         } else {
 
-            Usuario usuario = new Usuario();
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuario.setNome(nome);
-            usuario.setEndereco(endereco);
-            usuario.setCpf(cpf);
-            usuario.setSenha(senha);
+            Usuario usuario = new Usuario(nome,endereco,cpf,senha,status);
             usuario.setId(id);
-            usuario.setStatus("N");
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
 
             try {
                 switch (btEnviar) {
