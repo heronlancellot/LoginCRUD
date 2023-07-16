@@ -21,10 +21,10 @@ public class DashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuario = new Usuario();
         String acao = (String) request.getParameter("acao");
-
+        Usuario usuario = new Usuario();
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+       
         RequestDispatcher rd;
         switch (acao) {
             case "Listar":
@@ -36,21 +36,16 @@ public class DashboardController extends HttpServlet {
             case "Excluir":
                 // get parametro ação indicando sobre qual categoria será a ação
                 int id = Integer.parseInt(request.getParameter("id"));
-                try {
-                    usuario = usuarioDAO.getUsuario(id);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    throw new RuntimeException("Falhou");
-                }
-
+                System.out.println("valor do id " + id);
+              
+                usuario = usuarioDAO.getUsuario(id);
+      
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
 
                 rd = request.getRequestDispatcher("/views/admin/dashboard/formDashboard.jsp");
                 rd.forward(request, response);
-                break;
-            case "Incluir":
                 break;
         }
 
@@ -65,7 +60,8 @@ public class DashboardController extends HttpServlet {
        // String acao = (String) request.getParameter("acao");
         String btEnviar = request.getParameter("btEnviar");
 
-        //int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("valor do id 2: " + id);
         String nome = request.getParameter("nome");
         String endereco = request.getParameter("endereco");
         String cpf = request.getParameter("cpf");
@@ -78,7 +74,14 @@ public class DashboardController extends HttpServlet {
         } 
         else {
             
-            Usuario usuario = new Usuario(nome,cpf, endereco,senha);
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEndereco(endereco);
+            usuario.setCpf(cpf);
+            usuario.setSenha(senha);
+            usuario.setId(id);
+            usuario.setStatus("S");
+            
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             try {
                 switch (btEnviar) {
@@ -89,10 +92,12 @@ public class DashboardController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");           
                         break;
                     case "Excluir":
+                        
                         usuarioDAO.Excluir(usuario);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                     case "Aprovar":
+                        System.out.println("valor do debugad" + usuario.getId());
                         usuario.setStatus("S");
                         usuarioDAO.Alterar(usuario);
                         break;

@@ -104,6 +104,7 @@ public class CategoriaController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
+                         System.out.println(categoria);
                         categoriaDAO.update(categoria);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;

@@ -20,7 +20,7 @@
                 <%
                     Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                     ArrayList<Usuario> usuariosNaoAprovados = (ArrayList<Usuario>) request.getAttribute("usuariosNaoAprovados");
-                    out.println("<h3>Usuário logado com sucesso</h3>");
+                    //out.println("<h3>Usuário logado com sucesso</h3>");
                     out.println("<h2>Nome: " + usuarioLogado.getNome() + "</h2>");
 
 
@@ -48,7 +48,7 @@
                             %>
                         <td>
                             <a href="/aplicacaoMVC/admin/dashboard?acao=Alterar&id=<%=usuario.getId()%>" class="btn btn-warning">Alterar</a>
-                            <a href="/aplicacaoMVC/admin/dashboard?acao=Excluir&usuario=<%=usuario.getId()%>" class="btn btn-danger">Excluir</a>
+                            <a href="/aplicacaoMVC/admin/dashboard?acao=Excluir&id=<%=usuario.getId()%>" class="btn btn-danger">Excluir</a>
                             <a href="/aplicacaoMVC/admin/dashboard?acao=Aprovar&id=<%=usuario.getId()%>" class="btn btn-success">Aprovar</a></td>
                         <%   out.println("</tr>");
                             }
