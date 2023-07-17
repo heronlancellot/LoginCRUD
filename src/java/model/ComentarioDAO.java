@@ -66,7 +66,25 @@ public class ComentarioDAO implements Dao<Comentario> {
             conexao.closeConexao();
         }
     }
+    
+    public void Inserir(Comentario comentario) throws Exception {
+        Conexao conexao = new Conexao();
+        try {
+            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO comentarios (id, comentario, data, idcategoria, idusuario)"
+                    + " VALUES (?,?,?,?,?)");
+            sql.setInt(1, comentario.getId());
+            sql.setString(2, comentario.getComentario());
+            sql.setDate(3, comentario.getData());
+            sql.setInt(4, comentario.getIdcategoria());
+            sql.setInt(5, comentario.getIdusuario());
+            sql.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        } finally {
+            conexao.closeConexao();
+        }
+    }
     @Override
     public void update(Comentario t) {
         Conexao conexao = new Conexao();

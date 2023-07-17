@@ -1,3 +1,4 @@
+<%@page import="entidade.Usuario"%>
 <%@page import="entidade.Comentario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,6 +18,8 @@
             <div class="row mt-5">
                 <div class="col-sm-4 offset-3">
                     <%
+                        
+                        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                         Comentario comentario = (Comentario) request.getAttribute("comentario");
                         String acao = (String) request.getAttribute("acao");
                         switch (acao) {
@@ -40,7 +43,7 @@
 
                     <form action="/aplicacaoMVC/admin/ComentarioController" method="POST">
                         <input type="hidden" name="id" value="<%=comentario.getId()%>" class="form-control">
-                        <input type="hidden" name="idusuario" value="<%=comentario.getIdusuario()%>" class="form-control">
+                        <input type="hidden" name="idusuario" value="<%=usuarioLogado.getId()%>" class="form-control">
                         <input type="hidden" name="idcategoria" value="<%=comentario.getIdcategoria()%>" class="form-control">                        
                         
                         <div class="mb-3">

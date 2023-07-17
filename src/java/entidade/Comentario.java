@@ -41,6 +41,13 @@ public Comentario(int idUsuario, String comentario, String data) {
     this.data = data;
 }
 
+    public Comentario(int id, String comentario, String data, int idcategoria) {
+        this.id = id;
+        this.comentario = comentario;
+        this.data = data;
+        this.idcategoria = idcategoria;
+    }
+
     public int getId() {
         return id;
     }

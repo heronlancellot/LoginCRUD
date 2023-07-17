@@ -1,6 +1,7 @@
 package controller.admin;
 
 import entidade.Comentario;
+import entidade.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.ComentarioDAO;
 
 @WebServlet(name = "ComentarioController", urlPatterns = {"/admin/ComentarioController"})
@@ -60,41 +62,47 @@ public class ComentarioController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println("Valor do id: " + id);
+        System.out.println("Valor do id - Comentario: " + id);
 
         String comentario = request.getParameter("comentario");
         System.out.println("Valor do comentario: " + comentario);
+
+        String dataString = request.getParameter("data");
+        System.out.println("Valor do data: " + dataString);
+        java.sql.Date data = java.sql.Date.valueOf(dataString);
         
-        String data = request.getParameter("data");
-        System.out.println("Valor do data: " + data);
+        int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
+        System.out.println("Valor do idcategoria: " + idcategoria);
         
         int idusuario = Integer.parseInt(request.getParameter("idusuario"));
         System.out.println("Valor do idusuario: " + idusuario);
 
-        int idcategoria = Integer.parseInt(request.getParameter("idcategoria"));
-        System.out.println("Valor do idcategoria: " + idcategoria);
-        
         String btEnviar = request.getParameter("btEnviar");
 
         RequestDispatcher rd;
 
-        if (comentario.isEmpty() || data.isEmpty()) {
-
+        if (comentario.isEmpty() || dataString.isEmpty()) {
+            request.setAttribute("msgError", "Usuário e/ou senha incorreto");
+            rd = request.getRequestDispatcher("/views/admin/comentarioUser/formComentario.jsp");
+            rd.forward(request, response);
         } else {
-
-            Comentario meuComentario = new Comentario();
+            
+            System.out.println("Usuario GET ID = " + usuarioLogado.getId());
+          
+            Comentario meuComentario = new Comentario(id,comentario, data, idcategoria );
+            System.out.println(" Comentario" + meuComentario);
+    
             ComentarioDAO comentarioDAO = new ComentarioDAO();
-            meuComentario.setComentario(comentario);
-            meuComentario.setData(data);
-            meuComentario.setId(id);
-            meuComentario.setIdusuario(1);
-            meuComentario.setIdcategoria(idcategoria);
-
             try {
                 switch (btEnviar) {
                     case "Incluir":
-                        comentarioDAO.insert(meuComentario);
+                        System.out.println("Incluir Comentario" + meuComentario);
+                        comentarioDAO.Inserir(meuComentario);
+                        
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
