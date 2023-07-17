@@ -29,6 +29,17 @@ public class Comentario {
         this.nomeususario = "";
         this.nomeCategoria = "";
     }
+    
+public Comentario(int id, String comentario) {
+    this.id = id;
+    this.comentario = comentario;
+}
+
+public Comentario(int idUsuario, String comentario, String data) {
+    this.id = idUsuario;
+    this.comentario = comentario;
+    this.data = data;
+}
 
     public int getId() {
         return id;

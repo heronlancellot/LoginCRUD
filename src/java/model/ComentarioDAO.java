@@ -85,6 +85,23 @@ public class ComentarioDAO implements Dao<Comentario> {
         }
     }
 
+    public void Alterar(Comentario comentario) {
+        Conexao conexao = new Conexao();
+        try {
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET cometario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
+            sql.setString(1, comentario.getComentario());
+            sql.setString(2, comentario.getData());
+            sql.setInt(3, comentario.getIdusuario());
+
+            sql.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de update (alterar comentario) incorreta");
+        } finally {
+            conexao.closeConexao();
+        }
+    }
+
     @Override
     public void delete(int id) {
         Conexao conexao = new Conexao();
@@ -126,5 +143,34 @@ public class ComentarioDAO implements Dao<Comentario> {
             conexao.closeConexao();
         }
         return meusComentarios;
+    }
+    
+    public ArrayList<Comentario> getUser() {
+
+        ArrayList<Comentario> meuUsuario = new ArrayList();
+        Conexao conexao = new Conexao();
+        try {
+            String selectSQL = "SELECT * FROM comentarios WHERE idusuario = ? ";
+            PreparedStatement preparedStatement;
+            preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    Comentario Comentario = new Comentario(
+                            resultado.getInt("id"),
+                            resultado.getString("comentario"),
+                            resultado.getString("data"),
+                            resultado.getInt("idcategoria"),
+                            resultado.getInt("idusuario")                     
+                    );
+                    meuUsuario.add(Comentario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (GetUser) incorreta");
+        } finally {
+            conexao.closeConexao();
+        }
+        return meuUsuario;
     }
 }

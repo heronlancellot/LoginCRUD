@@ -15,10 +15,11 @@
                         if (usuarioLogado != null) { %>
                             <a class="nav-link" href="/aplicacaoMVC/admin/dashboard?acao=Listar">Dashboard</a>
                             <a class="nav-link" href="/aplicacaoMVC/admin/CategoriaController?acao=Listar">Categorias</a>
+                            <a class="nav-link" href="/aplicacaoMVC/admin/ComentarioController?acao=Listar">Comentário</a>
                             <a class="nav-link" href="/aplicacaoMVC/admin/logOut">Logout</a>
                 <%  } else { %>
                 
-                            <a class="nav-link" href="/aplicacaoMVC/MostrarComentarios">Coment&aacute;rios</a>
+                            <a class="nav-link" href="/aplicacaoMVC/MostrarComentarios">Comentários</a>
                             <a class="nav-link" href="/aplicacaoMVC/AutenticaController?acao=Login">Login</a>
                 <%    }
                     }%>

@@ -42,7 +42,10 @@
                                     %>
                             <td>
                             <a href="/aplicacaoMVC/admin/CategoriaController?acao=Alterar&id=<%=categoria.getId()%>" class="btn btn-warning">Alterar</a>
-                            <a href="/aplicacaoMVC/admin/CategoriaController?acao=Excluir&id=<%=categoria.getId()%>" class="btn btn-danger">Excluir</a></td>
+                            <a href="/aplicacaoMVC/admin/CategoriaController?acao=Excluir&id=<%=categoria.getId()%>" class="btn btn-danger">Excluir</a>
+                            <a href="/aplicacaoMVC/admin/ComentarioController?acao=Incluir&id=<%=categoria.getId()%>" class="btn btn-success">Adicionar Comentario</a>
+                            </td>
+                            </td>
                             
                             <%   out.println("</tr>");
                                 }
