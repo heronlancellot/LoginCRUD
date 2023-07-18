@@ -1,3 +1,4 @@
+<%@page import="entidade.Comentario"%>
 <%@page import="entidade.Categoria"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
@@ -34,7 +35,7 @@
                         <tbody>
                             <%
                                 ArrayList<Categoria> listaCategorias = (ArrayList<Categoria>) request.getAttribute("listaCategorias");
-
+     
                                 for (Categoria categoria : listaCategorias) {
                                     out.println("<tr>");
                                     out.println("<th>" + categoria.getId() + "</th>");

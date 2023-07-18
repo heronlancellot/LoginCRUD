@@ -21,6 +21,8 @@
                         
                         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                         Comentario comentario = (Comentario) request.getAttribute("comentario");
+                        int idComentario = (int)request.getAttribute("idComentario");
+                        
                         String acao = (String) request.getAttribute("acao");
                         switch (acao) {
                             case "Incluir":
@@ -31,6 +33,7 @@
                                 break;
                             case "Excluir":
                                 out.println("<h1>Excluir Comentário</h1>");
+                                
                                 break;
                         }
 
@@ -44,7 +47,8 @@
                     <form action="/aplicacaoMVC/admin/ComentarioController" method="POST">
                         <input type="hidden" name="id" value="<%=comentario.getId()%>" class="form-control">
                         <input type="hidden" name="idusuario" value="<%=usuarioLogado.getId()%>" class="form-control">
-                        <input type="hidden" name="idcategoria" value="<%=comentario.getIdcategoria()%>" class="form-control">                        
+                        <input type="hidden" name="idcategoria" value="<%=comentario.getIdcategoria()%>" class="form-control">     
+                        <input type="hidden" name="idComentario" value="<%=idComentario%>" class="form-control">  
                         
                         <div class="mb-3">
                             <label for="comentario" class="form-label" >Comentario </label>

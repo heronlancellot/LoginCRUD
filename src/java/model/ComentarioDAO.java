@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import entidade.Comentario;
+import java.sql.Types;
 
 /*
 --
@@ -36,7 +37,7 @@ public class ComentarioDAO implements Dao<Comentario> {
                 while (resultado.next()) {
                     comentario.setId(Integer.parseInt(resultado.getString("ID")));
                     comentario.setComentario(resultado.getString("COMENTARIO"));
-                    comentario.setData(resultado.getString("DATA"));
+                    comentario.setData(resultado.getDate("DATA"));
                     comentario.setId(Integer.parseInt(resultado.getString("IDUSUARIO")));
                 }
             }
@@ -54,10 +55,20 @@ public class ComentarioDAO implements Dao<Comentario> {
 
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO comentarios (cometario, data, idusuario) VALUES (?,?,?)");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO comentarios (comentario, data, , idcategoria, idusuario) VALUES (?,?,?,?)");
+           
+            System.out.println(t.getComentario());
+            System.out.println(t.getData().toString());
+            System.out.println(t.getIdcategoria());
+            System.out.println(t.getIdusuario());
+            
+            
+            
+            
             sql.setString(1, t.getComentario());
-            sql.setString(2, t.getData());
-            sql.setInt(3, t.getIdusuario());
+            sql.setDate(2, t.getData());
+            sql.setInt(3, t.getIdcategoria());
+            sql.setInt(4, t.getIdusuario());
             sql.executeUpdate();
 
         } catch (SQLException e) {
@@ -67,31 +78,44 @@ public class ComentarioDAO implements Dao<Comentario> {
         }
     }
     
-    public void Inserir(Comentario comentario) throws Exception {
-        Conexao conexao = new Conexao();
-        try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("INSERT INTO comentarios (id, comentario, data, idcategoria, idusuario)"
-                    + " VALUES (?,?,?,?,?)");
-            sql.setInt(1, comentario.getId());
+ public void Inserir(Comentario comentario) throws Exception {
+    Conexao conexao = new Conexao();
+    try {
+      
+        final String SQL = "INSERT INTO comentarios (id, comentario, data, idcategoria, idusuario) VALUES (?,?,?,?,?)";
+        
+        try (PreparedStatement sql = conexao.getConexao().prepareStatement(SQL)) {
+            
+            
+            sql.setNull(1, Types.INTEGER);
+            
+           
             sql.setString(2, comentario.getComentario());
-            sql.setDate(3, comentario.getData());
+            
+            java.util.Date utilDate = comentario.getData();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+            sql.setDate(3, sqlDate);
+
             sql.setInt(4, comentario.getIdcategoria());
             sql.setInt(5, comentario.getIdusuario());
+            
             sql.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException();
-        } finally {
-            conexao.closeConexao();
         }
+
+    } catch (SQLException e) {
+        throw new RuntimeException();
+    } finally {
+        conexao.closeConexao();
     }
+}
     @Override
     public void update(Comentario t) {
         Conexao conexao = new Conexao();
         try {
             PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET cometario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
             sql.setString(1, t.getComentario());
-            sql.setString(2, t.getData());
+            sql.setDate(2, t.getData());
             sql.setInt(3, t.getIdusuario());
 
             sql.executeUpdate();
@@ -108,7 +132,7 @@ public class ComentarioDAO implements Dao<Comentario> {
         try {
             PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET cometario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
             sql.setString(1, comentario.getComentario());
-            sql.setString(2, comentario.getData());
+            sql.setDate(2, comentario.getData());
             sql.setInt(3, comentario.getIdusuario());
 
             sql.executeUpdate();
@@ -148,7 +172,7 @@ public class ComentarioDAO implements Dao<Comentario> {
             if (resultado != null) {
                 while (resultado.next()) {
                     Comentario Comentario = new Comentario(resultado.getInt("id"),resultado.getString("comentario"),
-                            resultado.getString("data"),
+                            resultado.getDate("data"),
                             resultado.getInt("idusuario"),
                             resultado.getInt("idcategoria")
                     );
@@ -177,7 +201,7 @@ public class ComentarioDAO implements Dao<Comentario> {
                     Comentario Comentario = new Comentario(
                             resultado.getInt("id"),
                             resultado.getString("comentario"),
-                            resultado.getString("data"),
+                            resultado.getDate("data"),
                             resultado.getInt("idcategoria"),
                             resultado.getInt("idusuario")                     
                     );
