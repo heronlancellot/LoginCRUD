@@ -18,9 +18,9 @@
              <jsp:include page="../../comum/menu.jsp" />
             <div class="mt-5">
 
-                <h2>Lista de Comentários</h2>
+                <h2>Meus Comentários</h2>
 
-                <a href="/aplicacaoMVC/admin/ComentarioController?acao=Incluir" class="mb-2 btn btn-primary">Incluir</a>
+                
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -35,6 +35,7 @@
                         <tbody>
                             <%
                                 ArrayList<Comentario> listaComentarios = (ArrayList<Comentario>) request.getAttribute("listaComentarios");
+                                
 
                                 for (Comentario comentario : listaComentarios) {
                                     out.println("<tr>");
@@ -46,8 +47,11 @@
 
                                     %>
                             <td>
-                            <a href="/aplicacaoMVC/admin/ComentarioController?acao=Alterar&id=<%=comentario.getId()%>" class="btn btn-warning">Alterar</a>
-                            <a href="/aplicacaoMVC/admin/ComentarioController?acao=Excluir&id=<%=comentario.getId()%>" class="btn btn-danger">Excluir</a></td>
+                            <a href="/aplicacaoMVC/admin/ComentarioController?acao=Alterar&idcomentario=<%=comentario.getId()%>&idcategoria=<%=comentario.getIdcategoria()%>" class="btn btn-warning">Alterar</a>
+                            <a href="/aplicacaoMVC/admin/ComentarioController?acao=Excluir&idcomentario=<%=comentario.getId()%>" class="btn btn-danger">Excluir</a>
+                           
+                            </td>
+                            
                             
                             <%   out.println("</tr>");
                                 }

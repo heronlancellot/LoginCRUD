@@ -1,33 +1,28 @@
 package entidade;
 
+import java.sql.Date;
+
 public class Comentario {
 
     private int id;
     private String comentario;
-    private String data;
+    private Date data;
     private int idusuario;
     private int idcategoria;
     private String nomeususario;
     private String nomeCategoria;
 
     public Comentario() {
-        this.id = 0;
-        this.comentario = "";
-        this.data = "";
-        this.idcategoria = 0;
-        this.idusuario = 0;
-        this.nomeususario = "";
-        this.nomeCategoria = "";
+
     }
 
-    public Comentario(int id, String comentario, String data, int idusuario, int idcategoria) {
+    public Comentario(int id, String comentario, Date data, int idusuario, int idcategoria) {
         this.id = id;
         this.comentario = comentario;
         this.data = data;
         this.idusuario = idusuario;
         this.idcategoria = idcategoria;
-        this.nomeususario = "";
-        this.nomeCategoria = "";
+
     }
     
 public Comentario(int id, String comentario) {
@@ -35,11 +30,18 @@ public Comentario(int id, String comentario) {
     this.comentario = comentario;
 }
 
-public Comentario(int idUsuario, String comentario, String data) {
+public Comentario(int idUsuario, String comentario, Date data) {
     this.id = idUsuario;
     this.comentario = comentario;
     this.data = data;
 }
+
+    public Comentario(int id, String comentario, Date data, int idcategoria) {
+        this.id = id;
+        this.comentario = comentario;
+        this.data = data;
+        this.idcategoria = idcategoria;
+    }
 
     public int getId() {
         return id;
@@ -57,11 +59,11 @@ public Comentario(int idUsuario, String comentario, String data) {
         this.comentario = comentario;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
