@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Comentario {
 
-    private int id =0;
+    private int id;
     private String comentario;
     private Date data;
     private int idusuario;
@@ -22,8 +22,7 @@ public class Comentario {
         this.data = data;
         this.idusuario = idusuario;
         this.idcategoria = idcategoria;
-        this.nomeususario = "";
-        this.nomeCategoria = "";
+
     }
     
 public Comentario(int id, String comentario) {

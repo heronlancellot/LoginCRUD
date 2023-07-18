@@ -113,10 +113,15 @@ public class ComentarioDAO implements Dao<Comentario> {
     public void update(Comentario t) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET cometario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET comentario = ?, data = ?, idcategoria = ?, idusuario = ?  WHERE ID = ? ");
+            
             sql.setString(1, t.getComentario());
             sql.setDate(2, t.getData());
-            sql.setInt(3, t.getIdusuario());
+            sql.setInt(3, t.getIdcategoria());
+            sql.setInt(4, t.getIdusuario());
+            sql.setInt(5, t.getId());
+          
+            
 
             sql.executeUpdate();
 
@@ -130,7 +135,7 @@ public class ComentarioDAO implements Dao<Comentario> {
     public void Alterar(Comentario comentario) {
         Conexao conexao = new Conexao();
         try {
-            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET cometario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
+            PreparedStatement sql = conexao.getConexao().prepareStatement("UPDATE comentarios SET comentario = ?, data = ?, idusuario = ?, senha = ?  WHERE ID = ? ");
             sql.setString(1, comentario.getComentario());
             sql.setDate(2, comentario.getData());
             sql.setInt(3, comentario.getIdusuario());
@@ -187,32 +192,36 @@ public class ComentarioDAO implements Dao<Comentario> {
         return meusComentarios;
     }
     
-    public ArrayList<Comentario> getUser() {
-
-        ArrayList<Comentario> meuUsuario = new ArrayList();
-        Conexao conexao = new Conexao();
-        try {
-            String selectSQL = "SELECT * FROM comentarios WHERE idusuario = ? ";
-            PreparedStatement preparedStatement;
-            preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
-            ResultSet resultado = preparedStatement.executeQuery();
-            if (resultado != null) {
-                while (resultado.next()) {
-                    Comentario Comentario = new Comentario(
-                            resultado.getInt("id"),
-                            resultado.getString("comentario"),
-                            resultado.getDate("data"),
-                            resultado.getInt("idcategoria"),
-                            resultado.getInt("idusuario")                     
-                    );
-                    meuUsuario.add(Comentario);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Query de select (GetUser) incorreta");
-        } finally {
-            conexao.closeConexao();
-        }
-        return meuUsuario;
-    }
+//       public ArrayList<Comentario> getAll(int idusuario) {
+//
+//        ArrayList<Comentario> meuUsuario = new ArrayList();
+//        Conexao conexao = new Conexao();
+//        try {
+//            // Use um parâmetro na cláusula WHERE para filtrar pelo idusuario
+//            String selectSQL = "SELECT * FROM comentarios WHERE idusuario = ?";
+//            PreparedStatement preparedStatement;
+//            preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
+//            // Defina o valor do parâmetro com o idusuario que você quer filtrar
+//            preparedStatement.setInt(1, idusuario);
+//            ResultSet resultado = preparedStatement.executeQuery();
+//            if (resultado != null) {
+//                while (resultado.next()) {
+//                    Comentario Comentario = new Comentario(
+//                            resultado.getInt("id"),
+//                            resultado.getString("comentario"),
+//                            resultado.getDate("data"),
+//                            resultado.getInt("idcategoria"),
+//                            resultado.getInt("idusuario")                     
+//                    );
+//                    meuUsuario.add(Comentario);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException("Query de select (GetAll) incorreta");
+//        } finally {
+//            conexao.closeConexao();
+//        }
+//        return meuUsuario;
+//    }
+    
 }
