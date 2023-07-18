@@ -35,6 +35,7 @@
                         <tbody>
                             <%
                                 ArrayList<Comentario> listaComentarios = (ArrayList<Comentario>) request.getAttribute("listaComentarios");
+                                
 
                                 for (Comentario comentario : listaComentarios) {
                                     out.println("<tr>");

@@ -24,6 +24,8 @@ public class ComentarioController extends HttpServlet {
         Comentario meuComentario = new Comentario();
         ComentarioDAO meuComentarioDAO = new ComentarioDAO();
         RequestDispatcher rd;
+        int id=0;
+        
         switch (acao) {
             case "Listar":
                 ArrayList<Comentario> listaComentarios = meuComentarioDAO.getAll();
@@ -37,7 +39,7 @@ public class ComentarioController extends HttpServlet {
             case "Excluir":
 
                 // get parametro ação indicando sobre qual categoria será a ação
-                int id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 meuComentario = meuComentarioDAO.get(id);
 
                 request.setAttribute("comentario", meuComentario);
@@ -48,6 +50,10 @@ public class ComentarioController extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "Incluir":
+                int idCategoria = Integer.parseInt(request.getParameter("id"));
+                System.out.println("ssssssssssss: " + idCategoria);
+                meuComentario.setIdcategoria(idCategoria);
+                
                 request.setAttribute("comentario", meuComentario);
                 request.setAttribute("msgError", "");
                 request.setAttribute("acao", acao);
@@ -93,16 +99,16 @@ public class ComentarioController extends HttpServlet {
             
             System.out.println("Usuario GET ID = " + usuarioLogado.getId());
           
-            Comentario meuComentario = new Comentario(id,comentario, data, idcategoria );
+            Comentario meuComentario = new Comentario(0,comentario, data, usuarioLogado.getId(), idcategoria );
             System.out.println(" Comentario" + meuComentario);
     
             ComentarioDAO comentarioDAO = new ComentarioDAO();
             try {
                 switch (btEnviar) {
                     case "Incluir":
-                        System.out.println("Incluir Comentario" + meuComentario);
-                        comentarioDAO.Inserir(meuComentario);
                         
+                        comentarioDAO.Inserir(meuComentario);
+                        System.out.println("Incluir Comentario" + meuComentario);
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
@@ -110,7 +116,7 @@ public class ComentarioController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        comentarioDAO.delete(id);
+                        comentarioDAO.delete(usuarioLogado.getId());
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }
