@@ -21,6 +21,8 @@ public class ComentarioController extends HttpServlet {
             throws ServletException, IOException {
 
 
+        HttpSession session = request.getSession();
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");        
         String acao = (String) request.getParameter("acao");
         Comentario comentario = new Comentario();
         ComentarioDAO meuComentarioDAO = new ComentarioDAO();
@@ -28,8 +30,8 @@ public class ComentarioController extends HttpServlet {
         int id;
 
         switch (acao) {
-            case "Listar":
-                ArrayList<Comentario> listaComentarios = meuComentarioDAO.getAll();
+            case "Listar":             
+                ArrayList<Comentario> listaComentarios = meuComentarioDAO.getAll(usuarioLogado.getId());
                 request.setAttribute("listaComentarios", listaComentarios);
 
                 rd = request.getRequestDispatcher("/views/admin/comentarioUser/listaComentarios.jsp");

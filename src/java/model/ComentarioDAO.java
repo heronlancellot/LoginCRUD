@@ -192,36 +192,37 @@ public class ComentarioDAO implements Dao<Comentario> {
         return meusComentarios;
     }
     
-//       public ArrayList<Comentario> getAll(int idusuario) {
-//
-//        ArrayList<Comentario> meuUsuario = new ArrayList();
-//        Conexao conexao = new Conexao();
-//        try {
-//            // Use um parâmetro na cláusula WHERE para filtrar pelo idusuario
-//            String selectSQL = "SELECT * FROM comentarios WHERE idusuario = ?";
-//            PreparedStatement preparedStatement;
-//            preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
-//            // Defina o valor do parâmetro com o idusuario que você quer filtrar
-//            preparedStatement.setInt(1, idusuario);
-//            ResultSet resultado = preparedStatement.executeQuery();
-//            if (resultado != null) {
-//                while (resultado.next()) {
-//                    Comentario Comentario = new Comentario(
-//                            resultado.getInt("id"),
-//                            resultado.getString("comentario"),
-//                            resultado.getDate("data"),
-//                            resultado.getInt("idcategoria"),
-//                            resultado.getInt("idusuario")                     
-//                    );
-//                    meuUsuario.add(Comentario);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Query de select (GetAll) incorreta");
-//        } finally {
-//            conexao.closeConexao();
-//        }
-//        return meuUsuario;
-//    }
+       public ArrayList<Comentario> getAll(int idusuario) {
+
+        ArrayList<Comentario> meuUsuario = new ArrayList();
+        Conexao conexao = new Conexao();
+        try {
+            // Use um parâmetro na cláusula WHERE para filtrar pelo idusuario
+            String selectSQL = "SELECT * FROM comentarios WHERE idusuario = ?";
+            PreparedStatement preparedStatement;
+            preparedStatement = conexao.getConexao().prepareStatement(selectSQL);
+            // Defina o valor do parâmetro com o idusuario que você quer filtrar
+            preparedStatement.setInt(1, idusuario);
+            ResultSet resultado = preparedStatement.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    Comentario Comentario = new Comentario(
+                            resultado.getInt("id"),
+                            resultado.getString("comentario"),
+                            resultado.getDate("data"),
+                            resultado.getInt("idusuario"), 
+                            resultado.getInt("idcategoria")
+
+                    );
+                    meuUsuario.add(Comentario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (GetAll) incorreta");
+        } finally {
+            conexao.closeConexao();
+        }
+        return meuUsuario;
+    }
     
 }
