@@ -53,7 +53,7 @@ public class AutenticaController extends HttpServlet {
                 throw new RuntimeException("Falha na query para Logar");
             }
 
-            if (usuarioObtido.getId() != 0) {
+            if (usuarioObtido.getId() != 0 && usuarioObtido.getStatus().equals("S")) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuarioObtido);
 
