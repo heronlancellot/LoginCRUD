@@ -25,6 +25,7 @@
                         String acao = (String) request.getAttribute("acao");
                         switch (acao) {
                             case "Incluir":
+                                comentario.setComentario("");
                                 out.println("<h1>Incluir Comentário</h1>");
                                 break;
                             case "Alterar":
